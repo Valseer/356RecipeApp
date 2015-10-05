@@ -12,6 +12,10 @@
             android:name=".RecipeView"
             android:label="@string/title_activity_recipe_view" >
         </activity>
+        <activity
+            android:name=".RecipeSelector"
+            android:label="@string/title_activity_recipe_selector" >
+        </activity>
     </application>
 
 </manifest>

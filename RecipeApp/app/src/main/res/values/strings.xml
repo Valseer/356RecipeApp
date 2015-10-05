@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">RecipeApp</string>
     <string name="title_activity_recipe_view">RecipeView</string>
+    <string name="title_activity_recipe_selector">RecipeSelector</string>
 </resources>
