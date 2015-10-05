@@ -1,4 +1,4 @@
-package com.example.john.recipieapp356;
+package com.example.tyler_000.recipeapp;
 
 /**
  * Created by Kurt on 10/2/2015.
@@ -7,7 +7,7 @@ public class CurrentState {
     protected boolean is_on_recipe;
     protected boolean is_on_menu;
 
-    protected recipie currentRecipe;
+    protected recipe currentRecipe;
     //protected step currentStep;
 
 }
