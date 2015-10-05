@@ -1,21 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.tyler_000.recipeapp" >
+    package="com.example.tyler_000.recipeapp">
 
-    <application
-        android:allowBackup="true"
+    <application android:allowBackup="true" android:label="@string/app_name"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:supportsRtl="true"
-        android:theme="@style/AppTheme" >
-        <activity
-            android:name=".RecipeView"
-            android:label="@string/title_activity_recipe_view" >
-        </activity>
-        <activity
-            android:name=".RecipeSelector"
-            android:label="@string/title_activity_recipe_selector" >
-        </activity>
+        android:theme="@style/AppTheme">
+
     </application>
 
 </manifest>
