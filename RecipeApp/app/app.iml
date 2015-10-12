@@ -26,7 +26,9 @@
       </configuration>
     </facet>
   </component>
-  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_6" inherit-compiler-output="true">
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_6" inherit-compiler-output="false">
+    <output url="file://$MODULE_DIR$/build/intermediates/classes/debug" />
+    <output-test url="file://$MODULE_DIR$/build/intermediates/classes/androidTest/debug" />
     <exclude-output />
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/build/generated/source/r/debug" isTestSource="false" generated="true" />
@@ -86,5 +88,12 @@
     </content>
     <orderEntry type="jdk" jdkName="1.7" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" exported="" name="android-Vuzix Corporation:Vuzix M100 Add-On:15" level="project" />
+    <orderEntry type="library" exported="" name="vuzix_camera-Vuzix Corporation:Vuzix M100 Add-On:15" level="project" />
+    <orderEntry type="library" exported="" name="com.stonestreetone.bluetopiapm-Vuzix Corporation:Vuzix M100 Add-On:15" level="project" />
+    <orderEntry type="library" exported="" name="vuzix_gesture-Vuzix Corporation:Vuzix M100 Add-On:15" level="project" />
+    <orderEntry type="library" exported="" name="vuzix_speech-Vuzix Corporation:Vuzix M100 Add-On:15" level="project" />
+    <orderEntry type="library" exported="" name="android-Vuzix Corporation:Vuzix M100 Add-On:15" level="project" />
+    <orderEntry type="library" exported="" name="annotations-Vuzix Corporation:Vuzix M100 Add-On:15" level="project" />
   </component>
 </module>
