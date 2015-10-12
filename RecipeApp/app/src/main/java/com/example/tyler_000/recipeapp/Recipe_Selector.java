@@ -22,10 +22,11 @@ ArrayList<Recipe> recipeList;
         recipeList.add(new Recipe());
         recipeList.add(new Recipe());
         for(int i=0; i < recipeList.size(); i++) {
+            recipeList.get(i).setRecipeTitle("Potatoes" + i);
             Button b = new Button(this);
             b.setHeight(20);
             b.setWidth(myLayout.getWidth());
-            b.setText(recipeList.get(i).toString());
+            b.setText(recipeList.get(i).getRecipeTitle());
             myLayout.addView(b);
         }
     }
