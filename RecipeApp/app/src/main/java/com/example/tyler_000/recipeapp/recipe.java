@@ -32,8 +32,8 @@ public class Recipe {
     public String getRecipeTitle(){
         return recipeTitle;
     }
-    public void setRecipeTitle(String title){
-        recipeTitle=title;
+    public void setRecipeTitle(String recipeTitle){
+        this.recipeTitle=recipeTitle;
     }
 
     public HashMap getIngredients() {
