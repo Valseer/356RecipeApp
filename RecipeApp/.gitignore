@@ -1,7 +1,22 @@
-.gradle
-/local.properties
-/.idea/workspace.xml
-/.idea/libraries
+# General Folders
+
+gradle/
+build/
+bin/
+gen/
+tmp/
+# proguard/ comment if not using proguard.
+.gradle/
+.settings/
+.idea/
+
+# General Files
+
+.project
+.classpath
 .DS_Store
-/build
-/captures
+local.properties
+*.iml
+# gradlew comment when using gradle wrapper
+# gradlew.bat comment when using gradle wrapper
+Thumbs.db
