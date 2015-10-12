@@ -89,12 +89,15 @@
     </content>
     <orderEntry type="jdk" jdkName="Android API 15 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" exported="" name="android-Vuzix Corporation:Vuzix M100 Add-On:15" level="project" />
+    <orderEntry type="library" exported="" name="vuzix_camera-Vuzix Corporation:Vuzix M100 Add-On:15" level="project" />
+    <orderEntry type="library" exported="" name="com.stonestreetone.bluetopiapm-Vuzix Corporation:Vuzix M100 Add-On:15" level="project" />
+    <orderEntry type="library" exported="" name="vuzix_gesture-Vuzix Corporation:Vuzix M100 Add-On:15" level="project" />
+    <orderEntry type="library" exported="" name="vuzix_speech-Vuzix Corporation:Vuzix M100 Add-On:15" level="project" />
+    <orderEntry type="library" exported="" name="android-Vuzix Corporation:Vuzix M100 Add-On:15" level="project" />
+    <orderEntry type="library" exported="" name="annotations-Vuzix Corporation:Vuzix M100 Add-On:15" level="project" />
     <orderEntry type="library" exported="" name="support-v4-23.0.1" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-23.0.1" level="project" />
     <orderEntry type="library" exported="" name="vuzix_camera-android-15" level="project" />
-    <orderEntry type="library" exported="" name="com.stonestreetone.bluetopiapm-android-15" level="project" />
-    <orderEntry type="library" exported="" name="vuzix_gesture-android-15" level="project" />
-    <orderEntry type="library" exported="" name="vuzix_speech-android-15" level="project" />
-    <orderEntry type="library" exported="" name="android-android-15" level="project" />
   </component>
 </module>
