@@ -3,13 +3,8 @@ package com.example.tyler_000.recipeapp;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.io.Serializable;
-import java.lang.reflect.Array;
-import java.lang.reflect.ParameterizedType;
-import java.security.SecureClassLoader;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
 
 /**
  * Created by john on 10/5/2015.
@@ -19,7 +14,7 @@ import java.util.LinkedList;
 
 public class Recipe implements Parcelable {
     protected String recipeTitle;
-    protected Step firstStep;
+    protected Step curStep;
     protected HashMap ingredients;
     protected ArrayList<Step> recipeSteps;
 
@@ -39,7 +34,12 @@ public class Recipe implements Parcelable {
         return recipeSteps.get(0);
     }
 
-
+    public Step nextStep(){
+        if(curStep.stepNumber!=recipeSteps.size()){
+            curStep=recipeSteps.get(curStep.getStepNumber());
+        }
+        return curStep;
+    }
     public String getRecipeTitle(){
         return recipeTitle;
     }
@@ -58,7 +58,7 @@ public class Recipe implements Parcelable {
 
     protected Recipe(Parcel in) {
         recipeTitle = in.readString();
-        firstStep = (Step) in.readValue(Step.class.getClassLoader());
+        curStep = (Step) in.readValue(Step.class.getClassLoader());
         ingredients = (HashMap) in.readValue(HashMap.class.getClassLoader());
         if (in.readByte() == 0x01) {
             recipeSteps = new ArrayList<Step>();
@@ -76,7 +76,7 @@ public class Recipe implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(recipeTitle);
-        dest.writeValue(firstStep);
+        dest.writeValue(curStep);
         dest.writeValue(ingredients);
         if (recipeSteps == null) {
             dest.writeByte((byte) (0x00));
