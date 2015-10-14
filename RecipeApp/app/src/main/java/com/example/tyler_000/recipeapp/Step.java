@@ -13,6 +13,7 @@ import java.util.HashMap;
 public class Step implements Parcelable {
     protected String stepName;
     protected String stepText;
+    protected int stepNumber;
     protected HashMap<String,String> stepIngredients;
     public Step(){}
 
@@ -46,10 +47,17 @@ public class Step implements Parcelable {
         this.stepText = stepText;
     }
 
+    public void setStepNumber(int stepNumber){
+        this.stepNumber=stepNumber;
+    }
+    public int getStepNumber(){
+        return stepNumber;
+    }
     protected Step(Parcel in) {
         stepName = in.readString();
         stepText = in.readString();
         stepIngredients = (HashMap) in.readValue(HashMap.class.getClassLoader());
+        stepNumber= in .readInt();
     }
 
     @Override
@@ -62,6 +70,7 @@ public class Step implements Parcelable {
         dest.writeString(stepName);
         dest.writeString(stepText);
         dest.writeValue(stepIngredients);
+        dest.writeInt(stepNumber);
     }
 
     @SuppressWarnings("unused")
