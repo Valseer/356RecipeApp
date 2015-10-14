@@ -36,7 +36,14 @@ public class Recipe implements Parcelable {
 
     public Step nextStep(){
         if(curStep.stepNumber!=recipeSteps.size()){
-            curStep=recipeSteps.get(curStep.getStepNumber());
+            curStep=recipeSteps.get(curStep.getStepNumber()+1);
+        }
+        return curStep;
+    }
+
+    public Step prevStep(){
+        if(curStep.stepNumber!=0){
+            curStep=recipeSteps.get(curStep.getStepNumber()-1);
         }
         return curStep;
     }
