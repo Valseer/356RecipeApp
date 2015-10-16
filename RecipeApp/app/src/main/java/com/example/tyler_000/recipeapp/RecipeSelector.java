@@ -2,15 +2,13 @@ package com.example.tyler_000.recipeapp;
 
 import android.app.Activity;
 import android.app.ListActivity;
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.widget.ArrayAdapter;
 
 import java.util.ArrayList;
 
 public class RecipeSelector extends ListActivity {
-    public final static String EXTRA_RECIPE = "com.example.tyler_000.recipeapp.Recipe";
+
     ArrayList<Recipe> recipeList;
     ArrayList<String> recipeNames = new ArrayList<String>();
     ArrayAdapter<String> adapter;
@@ -29,18 +27,5 @@ public class RecipeSelector extends ListActivity {
             recipeNames.add(recipeList.get(i).getRecipeTitle());
             adapter.notifyDataSetChanged();
         }
-    }
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event)  {
-        if ( keyCode == KeyEvent.KEYCODE_BUTTON_SELECT ) {
-            Intent intent = new Intent(this, Step_Activity.class);
-            Recipe selectedRecipe = new Recipe();
-            intent.putExtra(EXTRA_RECIPE, selectedRecipe);
-            return true;
-
-        }
-        // let the system handle all other key events
-        return super.onKeyDown(keyCode, event);
     }
 }
