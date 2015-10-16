@@ -1,8 +1,11 @@
 package com.example.tyler_000.recipeapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.KeyEvent;
+import android.widget.TextSwitcher;
+import android.widget.TextView;
 
 public class Step_Activity extends Activity
 {
@@ -18,6 +21,7 @@ public class Step_Activity extends Activity
         Bundle data = getIntent().getExtras();
         currentRecipe = data.getParcelable(EXTRA_RECIPE);
         currentStep = currentRecipe.curStep;
+        changeView();
     }
 
     public boolean onKeyDown(int keyCode, KeyEvent event)  {
@@ -33,6 +37,14 @@ public class Step_Activity extends Activity
     }
 
     private void changeView(){
+
+        TextView stepName = (TextView) findViewById(R.id.stepName);
+        stepName.setText((CharSequence) currentStep.getStepName());
+
+        TextSwitcher step = (TextSwitcher) findViewById(R.id.stepDescription);
+        step.setText((CharSequence) currentStep.stepText);
+
+        return;
 
     }
 }
