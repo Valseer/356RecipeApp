@@ -37,6 +37,7 @@ public class RecipeSelector extends ListActivity {
             Intent intent = new Intent(this, Step_Activity.class);
             Recipe selectedRecipe = new Recipe();
             intent.putExtra(EXTRA_RECIPE, selectedRecipe);
+            startActivity(intent);
             return true;
 
         }
