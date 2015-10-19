@@ -20,6 +20,8 @@ public class Recipe implements Parcelable {
 
     public Recipe(){
 
+        Step newStep = new Step();
+        newStep.setStepText("default Recipe Step");
     }
 
     public Recipe(String fileLocation){

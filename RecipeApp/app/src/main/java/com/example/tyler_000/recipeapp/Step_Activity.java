@@ -21,6 +21,7 @@ public class Step_Activity extends Activity
         Bundle data = getIntent().getExtras();
         currentRecipe = data.getParcelable(EXTRA_RECIPE);
         currentStep = currentRecipe.curStep;
+        TextSwitcher step = (TextSwitcher) findViewById(R.id.stepDescription);
         changeView();
     }
 
@@ -42,6 +43,8 @@ public class Step_Activity extends Activity
         stepName.setText((CharSequence) currentStep.getStepName());
 
         TextSwitcher step = (TextSwitcher) findViewById(R.id.stepDescription);
+        TextView stepDescription = new TextView(this);
+        step.addView(stepDescription,-1);
         step.setText((CharSequence) currentStep.stepText);
 
         return;

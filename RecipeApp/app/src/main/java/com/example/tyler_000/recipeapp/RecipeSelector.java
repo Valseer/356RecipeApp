@@ -32,7 +32,7 @@ public class RecipeSelector extends ListActivity {
     }
 
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event)  {
+    public boolean onKeyUp(int keyCode, KeyEvent event)  {
         if ( keyCode == KeyEvent.KEYCODE_BUTTON_SELECT ) {
             Intent intent = new Intent(this, Step_Activity.class);
             Recipe selectedRecipe = new Recipe();
