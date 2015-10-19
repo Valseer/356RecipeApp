@@ -9,22 +9,20 @@
 			    
 				var addButton = document.getElementById("add");
 				addButton.onclick = function(e){
-					count = 1;
-					document.getElementById("steps").innerHTML+= '<input type="text" id="step" style="width:40%"> <label id="timerLabel">Timer?</label> <input type="checkbox" value="timer" id="timer"></input> <label id="timerValLabel">How Long?</label><input type="text" id="timerVal"></input></br>';
+					count++;
+					document.getElementById("steps").innerHTML += '<div id="step"><input type="text" id="step" style="width:40%"> <label id="timerLabel">Timer?</label> <input type="checkbox" value="timer" id="timer"></input> <label id="timerValLabel">How Long?</label><input type="text" id="timerVal"></input></br></div>';
+				}
+				var removeButton = document.getElementById("remove");
+				
+									
+				removeButton.onclick = function(e){
+					if (count > 0)
+					{
+						$("#step").last().remove();	
+						count--;
+					}
 				}
 				
-				if (count > 0)
-				{
-				var removeButton = document.getElementById("remove");				
-				removeButton.onclick = function(e){
-				$("br:last").remove();
-				$("#timerVal:last").remove();
-				$("#timerValLabel:last").remove();
-				$("#timer:last").remove();
-				$("#timerLabel:last").remove();
-				$("#step:last").remove();	
-				}
-				}
 			}
 		</script>
 	</head>
@@ -37,12 +35,12 @@
 		</div>
 		<div id="steps">
 			<p>Steps:</p>
-			<input type="text" id="step" style="width:40%"> <label id="timerLabel">Timer?</label> <input type="checkbox" value="timer" id="timer"></input> <label id="timerValLabel">How Long?</label><input type="text" id="timerVal"></input></br>
+			<div id="step"><input type="text" id="step" style="width:40%"> <label id="timerLabel">Timer?</label> <input type="checkbox" value="timer" id="timer"></input> <label id="timerValLabel">How Long?</label><input type="text" id="timerVal"></input></br></div>
 		</div>
 		<div>
 			<button id="add" style=" height:5%; width:7%">+</button>
 			<button id="remove"style=" height:5%; width:7%">-</button>
-			</br>
+			<p></p>
 			<button id="submit" style="width:7%">Submit</button>
 		</div>
 		<div>
