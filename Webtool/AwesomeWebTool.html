@@ -4,18 +4,26 @@
 		<title>Now you are cooking with SCRUM! Recipe Viewer WebTool</title>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 		<script>
+			var count = 0;
 			window.onload = function(e){
+			    
 				var addButton = document.getElementById("add");
 				addButton.onclick = function(e){
+					count = 1;
 					document.getElementById("steps").innerHTML+= '<input type="text" id="step" style="width:40%"> <label id="timerLabel">Timer?</label> <input type="checkbox" value="timer" id="timer"></input> <label id="timerValLabel">How Long?</label><input type="text" id="timerVal"></input></br>';
 				}
-				document.getElementById("remove").onclick = function(e){
+				
+				if (count > 0)
+				{
+				var removeButton = document.getElementById("remove");				
+				removeButton.onclick = function(e){
 				$("br:last").remove();
 				$("#timerVal:last").remove();
 				$("#timerValLabel:last").remove();
 				$("#timer:last").remove();
 				$("#timerLabel:last").remove();
 				$("#step:last").remove();	
+				}
 				}
 			}
 		</script>
@@ -28,7 +36,7 @@
 			<textarea id="ingredient" rows="10" cols="70" placeholder="Please enter the ingredients separated by commas"></textarea>
 		</div>
 		<div id="steps">
-			Steps: </br>
+			<p>Steps:</p>
 			<input type="text" id="step" style="width:40%"> <label id="timerLabel">Timer?</label> <input type="checkbox" value="timer" id="timer"></input> <label id="timerValLabel">How Long?</label><input type="text" id="timerVal"></input></br>
 		</div>
 		<div>
