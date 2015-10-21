@@ -1,0 +1,16 @@
+body{
+text-align:center;
+}
+
+#intro{
+background-color: #FF7935;
+}
+
+button{
+background:#724026;
+color:#FF7935;
+}
+button:hover{
+background:#FF7935;
+color:#724026;
+}
