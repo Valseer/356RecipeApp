@@ -7,13 +7,19 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.widget.ArrayAdapter;
 
+import com.vuzix.hardware.GestureSensor;
+
 import java.util.ArrayList;
 
 public class RecipeSelector extends ListActivity {
+
     public final static String EXTRA_RECIPE = "com.example.tyler_000.recipeapp.Recipe";
     ArrayList<Recipe> recipeList;
     ArrayList<String> recipeNames = new ArrayList<String>();
     ArrayAdapter<String> adapter;
+    GestureSensor gs ;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +35,9 @@ public class RecipeSelector extends ListActivity {
             recipeNames.add(recipeList.get(i).getRecipeTitle());
             adapter.notifyDataSetChanged();
         }
+
+        gs = new Gestures(this) ;
+        
     }
 
     @Override
@@ -44,4 +53,17 @@ public class RecipeSelector extends ListActivity {
         // let the system handle all other key events
         return super.onKeyDown(keyCode, event);
     }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        gs.register() ;
+    }
+
+    @Override
+    protected void onPause(){
+        super.onPause();
+        gs.unregister();
+    }
+
 }
