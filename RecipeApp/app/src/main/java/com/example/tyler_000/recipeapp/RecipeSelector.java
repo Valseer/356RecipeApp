@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.widget.ArrayAdapter;
 
+import com.example.tyler_000.recipeapp.gestures.RecipeSelectorGesture;
 import com.vuzix.hardware.GestureSensor;
 
 import java.util.ArrayList;
@@ -18,7 +19,6 @@ public class RecipeSelector extends ListActivity {
     ArrayList<String> recipeNames = new ArrayList<String>();
     ArrayAdapter<String> adapter;
     GestureSensor gs ;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,8 +36,8 @@ public class RecipeSelector extends ListActivity {
             adapter.notifyDataSetChanged();
         }
 
-        gs = new Gestures(this) ;
-        
+        gs = new RecipeSelectorGesture(this) ;
+
     }
 
     @Override
@@ -55,12 +55,18 @@ public class RecipeSelector extends ListActivity {
     }
 
     @Override
+    /**
+     * This will re-register the gesture sensor once it returns to this activity.
+     */
     protected void onResume(){
         super.onResume();
         gs.register() ;
     }
 
     @Override
+    /**
+     * This will un-register the gesture sensor when the activity is changed.
+     */
     protected void onPause(){
         super.onPause();
         gs.unregister();

@@ -1,51 +1,50 @@
-package com.example.tyler_000.recipeapp;
+package com.example.tyler_000.recipeapp.gestures;
 
 import android.content.Context;
 
+import com.example.tyler_000.recipeapp.Step_Activity;
 import com.vuzix.hardware.GestureSensor;
 
 /**
  * Created by Austin on 10/16/2015.
  * This class handles the gesture input.
  */
-public class Gestures extends GestureSensor {
+public class StepGesture extends GestureSensor {
+    Context step_activity ;
 
-    public Gestures(Context c){
-        super(c) ;
-    }
-
-    protected void doSomething(String str){
-        System.out.println(str + " sensed!") ;
+    public StepGesture(Context c) {
+        super(c);
+        step_activity = c ;
     }
 
     @Override
     protected void onBackSwipe(int i) {
-        doSomething("Back swipe") ;
+        //do nothing
     }
 
     @Override
     protected void onForwardSwipe(int i) {
-        doSomething("Forward swipe") ;
+        ((Step_Activity)step_activity).nextStep() ;
     }
 
     @Override
     protected void onUp(int i) {
-        doSomething("Up") ;
+        //do nothing
     }
 
     @Override
     protected void onDown(int i) {
-        doSomething("Down") ;
+        //do nothing
     }
 
     @Override
     protected void onNear() {
-        doSomething("Near") ;
+        ((Step_Activity)step_activity).previousStep();
     }
 
     @Override
     protected void onFar() {
-        doSomething("Far") ;
+        //do nothing (for now)
     }
 
 }
