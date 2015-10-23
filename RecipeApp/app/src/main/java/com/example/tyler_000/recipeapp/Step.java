@@ -18,9 +18,9 @@ public class Step implements Parcelable {
     public Step(){}
 
     public Step(String step, String stepText, HashMap<String, String> ingredients){
-        stepName=step;
+        this.stepName=step;
         this.stepText=stepText;
-        stepIngredients=ingredients;
+        this.stepIngredients=ingredients;
     }
 
     public HashMap<String, String> getStepIngredients(){
@@ -38,6 +38,7 @@ public class Step implements Parcelable {
     public void setStepIngredients(HashMap<String, String> stepIngredients) {
         this.stepIngredients = stepIngredients;
     }
+
 
     public void setStepName(String stepName) {
         this.stepName = stepName;

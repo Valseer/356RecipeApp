@@ -1,17 +1,22 @@
 package com.example.tyler_000.recipeapp;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.KeyEvent;
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.LinearLayout;
 import android.widget.TextSwitcher;
 import android.widget.TextView;
+import android.widget.ViewSwitcher;
 
 public class Step_Activity extends Activity
 {
     public final static String EXTRA_RECIPE = "com.example.tyler_000.recipeapp.Recipe";
     Recipe currentRecipe;
     Step currentStep;
+    private TextSwitcher stepSwitcher;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -19,9 +24,29 @@ public class Step_Activity extends Activity
         setContentView(R.layout.activity_step);
         getActionBar().setDisplayHomeAsUpEnabled(true);
         Bundle data = getIntent().getExtras();
-        currentRecipe = data.getParcelable(EXTRA_RECIPE);
-        currentStep = currentRecipe.curStep;
-        TextSwitcher step = (TextSwitcher) findViewById(R.id.stepDescription);
+       /*
+        currentRecipe =  data.getParcelable(EXTRA_RECIPE);
+        currentStep = currentRecipe.getCurStep();
+        */
+        currentRecipe = new Recipe();
+        currentStep = currentRecipe.getCurStep();
+        stepSwitcher =  (TextSwitcher) findViewById(R.id.stepDescription);
+        stepSwitcher.setFactory(new ViewSwitcher.ViewFactory()
+        {
+            @Override
+            public View makeView()
+            {
+                TextView stepText = new TextView(Step_Activity.this);
+                return stepText;
+            }
+        });
+
+        Animation in = AnimationUtils.loadAnimation(this,android.R.anim.slide_in_left);
+        Animation out = AnimationUtils.loadAnimation(this, android.R.anim.slide_out_right);
+
+        // set the animation type of textSwitcher
+        stepSwitcher.setInAnimation(in);
+        stepSwitcher.setOutAnimation(out);
         changeView();
     }
 
@@ -39,13 +64,8 @@ public class Step_Activity extends Activity
 
     private void changeView(){
 
-        TextView stepName = (TextView) findViewById(R.id.stepName);
-        stepName.setText((CharSequence) currentStep.getStepName());
 
-        TextSwitcher step = (TextSwitcher) findViewById(R.id.stepDescription);
-        TextView stepDescription = new TextView(this);
-        step.addView(stepDescription,-1);
-        step.setText((CharSequence) currentStep.stepText);
+        stepSwitcher.setText(currentStep.getStepText());
 
         return;
 
