@@ -1,8 +1,8 @@
 package com.example.tyler_000.recipeapp;
 
 import android.app.ListActivity;
-import android.content.Intent;
 import android.os.Bundle;
+
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -16,7 +16,10 @@ import java.util.ArrayList;
 
 public class RecipeSelector extends ListActivity {
 
+
     public final static String EXTRA_RECIPE = "com.example.tyler_000.recipeapp.Recipe";
+
+
     ArrayList<Recipe> recipeList;
     ArrayList<Recipe> recipeReferenceArray = new ArrayList<Recipe>();
     ArrayList<String> recipeNames = new ArrayList<String>();
@@ -61,6 +64,7 @@ public class RecipeSelector extends ListActivity {
         gs = new RecipeSelectorGesture(this) ;
 
     }
+
 
 
 

@@ -2,6 +2,7 @@ package com.example.tyler_000.recipeapp;
 
 import android.os.Bundle;
 import android.app.Activity;
+
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.Animation;
@@ -29,6 +30,7 @@ public class Step_Activity extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step);
         getActionBar().setDisplayHomeAsUpEnabled(true);
+
         Bundle data = getIntent().getExtras();
 
         currentRecipe =  data.getParcelable(EXTRA_RECIPE);
@@ -122,5 +124,9 @@ public class Step_Activity extends Activity
         super.onPause();
         gs.unregister();
     }
+
+
+    }
+
 
 }
