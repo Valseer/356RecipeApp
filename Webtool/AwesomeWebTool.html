@@ -1,0 +1,109 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Now you are cooking with SCRUM! Recipe Viewer WebTool</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+		<script>
+			var count = 0;
+			window.onload = function(e){
+			    
+				var addButton = document.getElementById("add");
+				addButton.onclick = function(e){
+					count++;
+					document.getElementById("steps").innerHTML += '<div class="step"><input type="text" id="stepText" style="width:40%"></input> <label id="timerLabel">Timer?</label> <input type="checkbox" value="timer" id="timer"></input> <label id="timerValLabel">How Long?</label><input type="text" id="timerVal"></input></br></div>';
+				}
+				var removeButton = document.getElementById("remove");
+				
+									
+				removeButton.onclick = function(e){
+					if (count > 0)
+					{
+						$(".step").last().remove();	
+						count--;
+					}
+				}
+				
+				var submitButton = document.getElementById("submit");
+				
+				submitButton.onclick = function(e){
+					var JSONText = "";
+					JSONText += '{"recipe":{"name":"' + document.getElementById("title").value + '","Ingredients":[';
+					var ingredientsText = document.getElementById("ingredient").value;
+					var character = '';
+					var allIngredients = [];
+					var ingredient = "";
+					for(var i=0; i < ingredientsText.length; i++)
+					{
+						character = ingredientsText[i];
+						if(character == ','){
+							allIngredients.push(ingredient);
+							ingredient = "";
+						}
+						else{
+							ingredient+=character;
+						}
+					}
+					
+					for(var z=0; z < allIngredients.length; z++){
+						ingredient = allIngredients[z];
+						JSONText += '"'+ingredient+'"';
+						if(z != allIngredients.length-1){
+						 JSONText+=",";
+						}
+					}
+					JSONText+='], "Steps":{';
+					
+					var allSteps = document.getElementsByClassName("step");
+					for(var x=0; x < allSteps.length; x++)
+					{
+						var allChildren = allSteps[x].children;
+							JSONText+='"'+(x+1)+'":{';
+							var stepText = allChildren[0];
+							JSONText += '"StepText":"'+stepText.value+'",';
+							var timerBool = allChildren[2].checked;
+							JSONText+='"timer":"'+timerBool+'"';
+							//position 4 for timerValue
+							if(timerBool){
+								JSONText+=',"timerVal":"'+allChildren[4].value+'"';
+							}
+							JSONText+="}"
+							
+							if(x != allSteps.length-1)
+								JSONText+=",";
+							
+					}
+					JSONText+="}}}";
+					
+					document.getElementById("GeneratedJSON").value = JSONText;
+				}
+				
+			}
+		</script>
+	</head>
+	<body>
+		<div id="intro">
+			<h1>RECIPE CREATOR!</h1>
+		</div>
+		<div>
+		<p>Name of Recipe:</p>
+			<input type="text" id="title" style="width:40%"></input>
+		</div>
+		<div id="ingredients">
+		<p>Ingredients:</p>
+			<textarea id="ingredient" rows="10" cols="70" placeholder="Please enter the ingredients separated by commas"></textarea>
+		</div>
+		<div id="steps">
+			<p>Steps:</p>
+			<div class="step"><input type="text" id="stepText" style="width:40%"></input> <label id="timerLabel">Timer?</label> <input type="checkbox" value="timer" id="timer"></input> <label id="timerValLabel">How Long?</label><input type="text" id="timerVal"></input></br></div>
+		</div>
+		<div>
+			<button id="add" style=" height:5%; width:7%">+</button>
+			<button id="remove"style=" height:5%; width:7%">-</button>
+			<p></p>
+			<button id="submit" style="width:7%">Submit</button>
+		</div>
+		<div>
+			<textarea id="GeneratedJSON" rows="10" cols="70" placeholder="Your Recipe will be converted to a format usable with the VUZIX M100 application when you press submit" readonly></textarea>
+		</div>
+	</body>
+</html>
