@@ -8,7 +8,30 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="com.example.tyler_000.recipeapp.Step_Activity">
+    tools:context="com.example.tyler_000.recipeapp.Step_Activity"
+    android:id="@+id/stepLayout">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/RecipeName"
+        android:textSize="16dp"
+        android:paddingBottom="2dp"
+        android:paddingTop="2dp"
+        android:textStyle="bold"/>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/stepName"
+        android:textStyle="normal"
+        android:layout_below="@id/RecipeName"/>
+
+    <TextSwitcher
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/stepDescription"
+        android:layout_below="@id/stepName">
+
+    </TextSwitcher>
 </RelativeLayout>

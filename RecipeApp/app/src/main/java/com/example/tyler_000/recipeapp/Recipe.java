@@ -16,10 +16,14 @@ public class Recipe implements Parcelable {
     protected String recipeTitle;
     protected Step curStep;
     protected HashMap ingredients;
-    protected ArrayList<Step> recipeSteps;
+    protected ArrayList<Step> recipeSteps = new ArrayList<Step>();
 
     public Recipe(){
 
+        this.recipeTitle = "default title";
+        Step newStep = new Step("potato","potato potato", ingredients = new HashMap<String,String>());
+        this.curStep = newStep;
+        this.recipeSteps.add(newStep);
     }
 
     public Recipe(String fileLocation){
@@ -35,7 +39,7 @@ public class Recipe implements Parcelable {
     }
 
     public Step nextStep(){
-        if(curStep.stepNumber!=recipeSteps.size()){
+        if(curStep.stepNumber!=(recipeSteps.size()-1)){
             curStep=recipeSteps.get(curStep.getStepNumber()+1);
         }
         return curStep;
@@ -62,6 +66,13 @@ public class Recipe implements Parcelable {
         this.ingredients = ingredients;
     }
 
+    public Step getCurStep(){
+        if(curStep == null){
+            Step newStep = new Step("cur was null bitch","was null",ingredients);
+            return newStep;
+        }
+        return curStep;
+    }
 
     protected Recipe(Parcel in) {
         recipeTitle = in.readString();
