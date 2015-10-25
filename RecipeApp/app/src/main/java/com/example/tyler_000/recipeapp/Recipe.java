@@ -74,6 +74,13 @@ public class Recipe implements Parcelable {
         return curStep;
     }
 
+    public ArrayList<Step> getRecipeSteps() {
+        return recipeSteps;
+    }
+    public void setRecipeSteps(ArrayList<Step> recipeSteps){
+        this.recipeSteps=recipeSteps;
+    }
+    
     protected Recipe(Parcel in) {
         recipeTitle = in.readString();
         curStep = (Step) in.readValue(Step.class.getClassLoader());
