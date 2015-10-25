@@ -126,7 +126,4 @@ public class Step_Activity extends Activity
     }
 
 
-    }
-
-
 }
