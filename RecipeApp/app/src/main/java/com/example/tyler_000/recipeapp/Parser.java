@@ -33,9 +33,11 @@ public class Parser {
                     step = steps.getJSONObject(Integer.toString(j));
                     Step thisStep = new Step();
                     thisStep.setStepText(step.getString("StepText"));
+                    thisStep.setStepNumber(j);
                     if (step.getString("timer").equals("true")) {
                         //thisStep.setTimer(Integer.parseInt(step.getJSONObject("timerVal").toString()));
                     }
+                    recipeSteps.add(thisStep);
                     i++;
                 }
                 catch (Exception e) {
