@@ -17,10 +17,11 @@ public class Step implements Parcelable {
     protected HashMap<String,String> stepIngredients;
     public Step(){}
 
-    public Step(String step, String stepText, HashMap<String, String> ingredients){
+    public Step(String step, String stepText, HashMap<String, String> ingredients, int stepNumber){
         this.stepName=step;
         this.stepText=stepText;
         this.stepIngredients=ingredients;
+        this.stepNumber = stepNumber;
     }
 
     public HashMap<String, String> getStepIngredients(){
