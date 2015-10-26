@@ -15,52 +15,48 @@ public class Parser {
         String line;
         Recipe recipe= new Recipe();
         JSONObject rec= new JSONObject();
+        HashMap<String, String> ingredientsMap= new HashMap<String, String>();
+        JSONArray ingredients;
         try{
-            BufferedReader read= new BufferedReader(new FileReader(fileLocation));
-            while((line = read.readLine())!=null){
-                rec= new JSONObject();
-            }
-            read.close();
-            recipe.setRecipeTitle(rec.getString("name"));
-
-            JSONObject steps= rec.getJSONObject("Steps");
+            BufferedReader read= new BufferedReader(new FileReader(new File(fileLocation)));
+            line = read.readLine();
+            rec= new JSONObject(line);
+            recipe.setRecipeTitle(rec.getJSONObject("recipe").getString("name"));
             boolean check= true;
             int i=1;
             ArrayList<Step> recipeSteps= new ArrayList<Step>();
-            while(check) {
-                JSONObject step;
+            JSONObject steps= rec.getJSONObject("recipe").getJSONObject("Steps");
+            JSONObject step;
+            int j=1;
+            while(check){
                 try {
-                    step = rec.getJSONObject(Integer.toString(i));
+                    step = steps.getJSONObject(Integer.toString(j));
                     Step thisStep = new Step();
-                    thisStep.setStepText(step.getJSONObject("StepText").toString());
-                    if (step.getJSONObject("timer").equals("true")) {
+                    thisStep.setStepText(step.getString("StepText"));
+                    if (step.getString("timer").equals("true")) {
                         //thisStep.setTimer(Integer.parseInt(step.getJSONObject("timerVal").toString()));
                     }
                     i++;
-                } catch (Exception e) {
+                }
+                catch (Exception e) {
                     e.printStackTrace();
                     check = false;
+                    System.out.println("Steps stopped");
                 }
             }
             recipe.setRecipeSteps(recipeSteps);
-            JSONArray ingredients= rec.getJSONArray("Ingredients");
+            ingredients= rec.getJSONArray("Ingredients");
             String ingr="";
-            HashMap<String, String> ingredientsMap= new HashMap<String, String>();
-            i=0;
-            while(true){
-                try {
-                    ingr=ingredients.getString(i);
-                    ingredientsMap.put(ingr.split(" ")[0], ingr.split(" ")[1]);
-                }
-                catch(Exception e){
-                    break;
-                }
-
+            for(i=0; i<ingredients.length(); i++){
+                ingr=ingredients.getString(i);
+                ingredientsMap.put(ingr.split(" ")[0], ingr.split(" ")[1]);
             }
             recipe.setIngredients(ingredientsMap);
+            System.out.println("Ingredients stopped");
+            read.close();
         }
         catch (Exception e){
-
+            e.printStackTrace();
         }
 
         return recipe;

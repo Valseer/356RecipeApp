@@ -1,6 +1,7 @@
 package com.example.tyler_000.recipeapp;
 
 import android.app.ListActivity;
+import android.content.Intent;
 import android.os.Bundle;
 
 import android.view.View;
@@ -12,7 +13,10 @@ import android.widget.AdapterView;
 import com.example.tyler_000.recipeapp.gestures.RecipeSelectorGesture;
 import com.vuzix.hardware.GestureSensor;
 
+import java.io.File;
+import java.io.FilenameFilter;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class RecipeSelector extends ListActivity {
 
@@ -33,7 +37,7 @@ public class RecipeSelector extends ListActivity {
         setContentView(R.layout.activity_recipe_selector);
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, recipeNames);
         recipeList = new ArrayList<Recipe>();
-        recipeList.add(new Recipe());
+        recipeList.add(new Recipe("sdcard/exampleJSON.json"));
         recipeList.add(new Recipe());
         recipeList.add(new Recipe());
         recipeReferenceArray.addAll(recipeList);

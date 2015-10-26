@@ -28,6 +28,7 @@ public class Recipe implements Parcelable {
 
     public Recipe(String fileLocation){
         Recipe rec= Parser.parseRecipe(fileLocation);
+        System.out.println("Created Recipe: "+ rec.getRecipeTitle());
     }
 
     public void displayRecipe(){
@@ -46,7 +47,7 @@ public class Recipe implements Parcelable {
     }
 
     public Step prevStep(){
-        if(curStep.stepNumber!=0){
+        if(curStep.stepNumber!=1){
             curStep=recipeSteps.get(curStep.getStepNumber()-1);
         }
         return curStep;
@@ -80,7 +81,7 @@ public class Recipe implements Parcelable {
     public void setRecipeSteps(ArrayList<Step> recipeSteps){
         this.recipeSteps=recipeSteps;
     }
-    
+
     protected Recipe(Parcel in) {
         recipeTitle = in.readString();
         curStep = (Step) in.readValue(Step.class.getClassLoader());

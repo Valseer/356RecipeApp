@@ -58,7 +58,7 @@ public class Step implements Parcelable {
         stepName = in.readString();
         stepText = in.readString();
         stepIngredients = (HashMap) in.readValue(HashMap.class.getClassLoader());
-        stepNumber= in .readInt();
+        stepNumber= in.readInt();
     }
 
     @Override
