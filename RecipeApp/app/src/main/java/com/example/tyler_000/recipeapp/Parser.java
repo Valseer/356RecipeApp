@@ -14,7 +14,7 @@ public class Parser {
     public static Recipe parseRecipe(String fileLocation){
         String line;
         Recipe recipe= new Recipe();
-        JSONObject rec= new JSONObject();
+        JSONObject rec;
         HashMap<String, String> ingredientsMap= new HashMap<String, String>();
         JSONArray ingredients;
         try{
@@ -35,6 +35,7 @@ public class Parser {
                     thisStep.setStepText(step.getString("StepText"));
                     thisStep.setStepNumber(j);
                     if (step.getString("timer").equals("true")) {
+                        //TODO
                         //thisStep.setTimer(Integer.parseInt(step.getJSONObject("timerVal").toString()));
                     }
                     recipeSteps.add(thisStep);
@@ -47,14 +48,14 @@ public class Parser {
                 }
             }
             recipe.setRecipeSteps(recipeSteps);
-            ingredients= rec.getJSONArray("Ingredients");
+            /*ingredients= rec.getJSONArray("Ingredients");
             String ingr="";
             for(i=0; i<ingredients.length(); i++){
                 ingr=ingredients.getString(i);
                 ingredientsMap.put(ingr.split(" ")[0], ingr.split(" ")[1]);
             }
             recipe.setIngredients(ingredientsMap);
-            System.out.println("Ingredients stopped");
+            System.out.println("Ingredients stopped");*/
             read.close();
         }
         catch (Exception e){
