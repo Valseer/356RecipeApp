@@ -21,7 +21,7 @@ public class Recipe implements Parcelable {
     public Recipe(){
 
         this.recipeTitle = "default title";
-        Step newStep = new Step("potato","potato potato", ingredients = new HashMap<String,String>());
+        Step newStep = new Step("potato","potato potato", ingredients = new HashMap<String,String>(), 10000);
         this.curStep = newStep;
         this.recipeSteps.add(newStep);
     }
@@ -68,7 +68,7 @@ public class Recipe implements Parcelable {
 
     public Step getCurStep(){
         if(curStep == null){
-            Step newStep = new Step("cur was null bitch","was null",ingredients);
+            Step newStep = new Step("cur was null bitch","was null",ingredients, 0);
             return newStep;
         }
         return curStep;

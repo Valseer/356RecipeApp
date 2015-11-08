@@ -61,7 +61,7 @@ public class Step_Activity extends Activity
         // set the animation type of textSwitcher
         stepSwitcher.setInAnimation(in);
         stepSwitcher.setOutAnimation(out);
-        changeView();
+        updateView();
 
         //Create the gesture sensor
         gs = new StepGesture(this) ;
@@ -85,8 +85,11 @@ public class Step_Activity extends Activity
      */
     public void nextStep(){
         System.out.println("Called next step!") ;
+        if(currentStep.hasTimer()){
+            currentStep.startTimer() ;
+        }
         currentStep = currentRecipe.nextStep();
-        changeView();
+        updateView();
     }
 
     /**
@@ -95,16 +98,13 @@ public class Step_Activity extends Activity
     public void previousStep(){
         System.out.println("Called prev step!") ;
         currentStep = currentRecipe.prevStep();
-        changeView();
+        updateView();
     }
 
-    private void changeView(){
-
-
+    public void updateView(){
         stepSwitcher.setText(currentStep.getStepText());
 
         return;
-
     }
 
     @Override
