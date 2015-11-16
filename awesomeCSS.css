@@ -1,0 +1,29 @@
+body{
+text-align:center;
+font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+
+#intro{
+/*background-color: #FF7935;*/
+border-radius: 5px;
+background: -webkit-linear-gradient(#FF7935, #FFC9AD); /* For Safari 5.1 to 6.0 */
+background: -o-linear-gradient(#FF7935, #FFC9AD); /* For Opera 11.1 to 12.0 */
+background: -moz-linear-gradient(#FF7935, #FFC9AD); /* For Firefox 3.6 to 15 */
+background: linear-gradient(#FF7935, #FFC9AD); /* Standard syntax */
+color: #FFFFFF
+}
+
+button{
+border-radius: 25px;
+background:#724026;
+color:#FFFFFF;
+background: -webkit-linear-gradient(#281911, #AD5123); /* For Safari 5.1 to 6.0 */
+background: -o-linear-gradient(#281911, #AD5123); /* For Opera 11.1 to 12.0 */
+background: -moz-linear-gradient(#281911, #AD5123); /* For Firefox 3.6 to 15 */
+background: linear-gradient(#281911, #AD5123); /* Standard syntax */
+}
+button:hover{
+border-radius: 25px;
+background:#FF7935;
+color:#FFFFFF;
+}
