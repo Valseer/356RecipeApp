@@ -28,7 +28,7 @@
 				
 				submitButton.onclick = function(e){
 					var JSONText = "";
-					JSONText += '{"recipe":{"name":"' + document.getElementById("title").value + '","Ingredients":[';
+					JSONText += '{"recipe":{"name":"' + document.getElementById("title").value + '","Ingredients":{';
 					var ingredientsText = document.getElementById("ingredient").value;
 					var character = '';
 					var allIngredients = [];
@@ -47,12 +47,12 @@
 					
 					for(var z=0; z < allIngredients.length; z++){
 						ingredient = allIngredients[z];
-						JSONText += '"'+ingredient+'"';
+						JSONText += '"'+(z+1)+'":'+'"'+ingredient+'"';
 						if(z != allIngredients.length-1){
 						 JSONText+=",";
 						}
 					}
-					JSONText+='], "Steps":{';
+					JSONText+='}, "Steps":{';
 					
 					var allSteps = document.getElementsByClassName("step");
 					for(var x=0; x < allSteps.length; x++)
