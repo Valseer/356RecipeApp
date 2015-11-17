@@ -16,27 +16,31 @@ public class Step implements Parcelable {
     protected int stepNumber;
     protected HashMap<String,String> stepIngredients;
     protected StepTimer timer;
+    protected boolean timerActive ;
 
     public Step(){}
 
     /**
      * Constructor for a step without a timer.
      */
-    public Step(String step, String stepText, HashMap<String, String> ingredients){
+    public Step(String step, String stepText, HashMap<String, String> ingredients, int stepNumber){
         this.stepName=step;
         this.stepText=stepText;
         this.stepIngredients=ingredients;
-        timer = null ;
+        this.stepNumber = stepNumber ;
+        this.timer = null ;
     }
 
     /**
      * Constructor for a step with a timer.
      */
-    public Step(String step, String stepText, HashMap<String, String> ingredients, int length){
+    public Step(String step, String stepText, HashMap<String, String> ingredients, int stepNumber, int length){
         this.stepName=step;
         this.stepText=stepText;
         this.stepIngredients=ingredients;
-        timer = new StepTimer(length, 1000) ;
+        this.stepNumber = stepNumber ;
+        this.timer = new StepTimer(length, 1000, this) ;
+        this.timerActive = false ;
     }
 
     public HashMap<String, String> getStepIngredients(){
@@ -73,7 +77,12 @@ public class Step implements Parcelable {
         stepName = in.readString();
         stepText = in.readString();
         stepIngredients = (HashMap) in.readValue(HashMap.class.getClassLoader());
-        stepNumber= in .readInt();
+        stepNumber= in.readInt();
+        long time = in.readLong() ;
+        if(time > 0){
+            timer = new StepTimer(time, 1000, this) ;
+        }
+        else timer = null ;
     }
 
     @Override
@@ -87,6 +96,10 @@ public class Step implements Parcelable {
         dest.writeString(stepText);
         dest.writeValue(stepIngredients);
         dest.writeInt(stepNumber);
+        if(timer != null){
+            dest.writeLong(timer.getRemaining());
+        }
+        else dest.writeLong(0) ;
     }
 
     @SuppressWarnings("unused")
@@ -102,12 +115,16 @@ public class Step implements Parcelable {
         }
     };
 
-    public boolean hasTimer(){ return this.timer != null ; }
+    public boolean hasTimer(){
+        return this.timer instanceof StepTimer ;
+    }
 
     public void startTimer() {
         //If the timer is null, you can't do any timer operations
         if(this.hasTimer()){
+            System.out.println("Starting timer!") ;
             this.timer.start() ;
+            this.timerActive = true ;
         }
     }
 
@@ -119,7 +136,9 @@ public class Step implements Parcelable {
             // cancel the old timer
             this.timer.cancel();
             // create a new timer using the remaining time from the previous timer
-            this.timer = new StepTimer(remaining, 1000);
+            this.timer = new StepTimer(remaining, 1000, this);
+            //Timer no longer active.
+            this.timerActive = false ;
         }
     }
 
@@ -130,6 +149,10 @@ public class Step implements Parcelable {
      */
     public void setTimerView(Object step_activity){
         this.timer.setActivity(step_activity) ;
+    }
+
+    public boolean isTimerActive(){
+        return this.timerActive ;
     }
 
 }

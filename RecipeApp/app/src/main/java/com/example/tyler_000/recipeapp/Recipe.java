@@ -21,9 +21,14 @@ public class Recipe implements Parcelable {
     public Recipe(){
 
         this.recipeTitle = "default title";
-        Step newStep = new Step("potato","potato potato", ingredients = new HashMap<String,String>(), 10000);
+        Step newStep = new Step("Step 1","This is a step with a 5-second timer.", ingredients = new HashMap<String,String>(), 0, 5000);
         this.curStep = newStep;
         this.recipeSteps.add(newStep);
+        Step secondStep = new Step("Step 2", "This is the second step, no timer.", ingredients = new HashMap<String,String>(), 1) ;
+        this.recipeSteps.add(secondStep) ;
+        Step thirdStep = new Step("Step 3","This is the third step with a 5-second timer.", ingredients = new HashMap<String,String>(), 2, 5000);
+        this.recipeSteps.add(thirdStep) ;
+
     }
 
     public Recipe(String fileLocation){

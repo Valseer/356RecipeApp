@@ -1,8 +1,10 @@
 package com.example.tyler_000.recipeapp;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.app.Activity;
 
+import android.support.v4.app.NotificationCompat;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.Animation;
@@ -10,6 +12,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 import android.widget.TextSwitcher;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
 import com.example.tyler_000.recipeapp.gestures.StepGesture;
@@ -45,6 +48,11 @@ public class Step_Activity extends Activity
         TextView stepName = (TextView) findViewById(R.id.stepName);
         stepName.setText(currentStep.getStepName());
 
+        //Assign the current step activity to the current step timer, if necessary.
+        if(currentStep.hasTimer()){
+            currentStep.setTimerView(this) ;
+        }
+
         stepSwitcher =  (TextSwitcher) findViewById(R.id.stepDescription);
         stepSwitcher.setFactory(new ViewSwitcher.ViewFactory()
         {
@@ -68,7 +76,6 @@ public class Step_Activity extends Activity
     }
 
     public boolean onKeyUp(int keyCode, KeyEvent event)  {
-
         if ( keyCode == KeyEvent.KEYCODE_DPAD_RIGHT ) {
             nextStep() ;
             return false;
@@ -77,18 +84,23 @@ public class Step_Activity extends Activity
             return false;
         }
         // let the system handle all other key events
-        return super.onKeyDown(keyCode, event);
+        return super.onKeyUp(keyCode, event);
     }
 
     /**
      * Increment the current step and update the view.
      */
     public void nextStep(){
-        System.out.println("Called next step!") ;
-        if(currentStep.hasTimer()){
+        //Start the timer automatically when moving to the next step if it has not been started yet.
+        if(currentStep.hasTimer() && !currentStep.timerActive){
             currentStep.startTimer() ;
         }
+        //Cycle to the next step
         currentStep = currentRecipe.nextStep();
+        //If the current view has a timer, pass in the current step_activity
+        if(currentStep.hasTimer()) {
+            currentStep.setTimerView(this);
+        }
         updateView();
     }
 
@@ -96,7 +108,6 @@ public class Step_Activity extends Activity
      * Decrement the current step and update the view.
      */
     public void previousStep(){
-        System.out.println("Called prev step!") ;
         currentStep = currentRecipe.prevStep();
         updateView();
     }
@@ -125,5 +136,21 @@ public class Step_Activity extends Activity
         gs.unregister();
     }
 
+    protected void onFinish(){
+        System.out.println("Creating finish notification") ;
+        //Please work
+        Context context = getApplicationContext() ;
+        CharSequence text = "Timer finished!" ;
+        int duration = Toast.LENGTH_LONG ;
+
+        Toast toast = Toast.makeText(context, text, duration) ;
+        toast.show() ;
+    }
+
+
+    // Getter for the current step
+    protected Step getCurrentStep(){
+        return this.currentStep ;
+    }
 
 }
