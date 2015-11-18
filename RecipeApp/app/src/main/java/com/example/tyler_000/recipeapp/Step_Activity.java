@@ -136,11 +136,11 @@ public class Step_Activity extends Activity
         gs.unregister();
     }
 
-    protected void onFinish(){
-        System.out.println("Creating finish notification") ;
-        //Please work
+    // This method is called by the timer when it finishes.
+    protected void onFinish(String stepName){
+        //This works, I promise.
         Context context = getApplicationContext() ;
-        CharSequence text = "Timer finished!" ;
+        CharSequence text = "The timer for " + stepName + " has finished." ;
         int duration = Toast.LENGTH_LONG ;
 
         Toast toast = Toast.makeText(context, text, duration) ;

@@ -49,7 +49,8 @@ public class StepTimer extends CountDownTimer{
     public void onFinish() {
         //Create notification to user that timer has finished.
         if(this.step_activity != null){
-            this.step_activity.onFinish() ;
+            String stepName = this.step.getStepName() ;
+            this.step_activity.onFinish(stepName) ;
         }
     }
 
