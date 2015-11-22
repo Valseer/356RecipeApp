@@ -11,19 +11,25 @@ import java.util.HashMap;
  * Created by john on 10/7/2015.
  */
 public class Parser {
+    static String[] allMeasurements = {"tsp","tbs","cup","oz","ml","L","gal","lbs","lb","fl_oz","qt"};
+    static ArrayList<String> actualAllMeasurements = new ArrayList<String>();
     public static Recipe parseRecipe(String fileLocation){
+        for(String s: allMeasurements){
+            if(!actualAllMeasurements.contains(s)) {
+                actualAllMeasurements.add(s);
+            }
+        }
         String line;
         Recipe recipe= new Recipe();
         JSONObject rec= new JSONObject();
         HashMap<String, String> ingredientsMap= new HashMap<String, String>();
-        JSONArray ingredients;
+        JSONObject ingredients;
         try{
             BufferedReader read= new BufferedReader(new FileReader(new File(fileLocation)));
             line = read.readLine();
             rec= new JSONObject(line);
             recipe.setRecipeTitle(rec.getJSONObject("recipe").getString("name"));
             boolean check= true;
-            int i=1;
             ArrayList<Step> recipeSteps= new ArrayList<Step>();
             JSONObject steps= rec.getJSONObject("recipe").getJSONObject("Steps");
             JSONObject step;
@@ -38,7 +44,7 @@ public class Parser {
                         //thisStep.setTimer(Integer.parseInt(step.getJSONObject("timerVal").toString()));
                     }
                     recipeSteps.add(thisStep);
-                    i++;
+                    j++;
                 }
                 catch (Exception e) {
                     e.printStackTrace();
@@ -47,18 +53,46 @@ public class Parser {
                 }
             }
             recipe.setRecipeSteps(recipeSteps);
-            ingredients= rec.getJSONArray("Ingredients");
+            ingredients= rec.getJSONObject("recipe").getJSONObject("Ingredients");
             String ingr="";
-            for(i=0; i<ingredients.length(); i++){
-                ingr=ingredients.getString(i);
-                ingredientsMap.put(ingr.split(" ")[0], ingr.split(" ")[1]);
+            j=1;
+            check=true;
+            while(check){
+                try {
+                    ingr = ingredients.getString(Integer.toString(j));
+                    String[] ingred=ingr.split(" ");
+                    int i=0;
+                    String amount="";
+                    String food="";
+                    for(String s : ingred){
+                        //value, measurement, ingredient (1 cup flour/ 1 tablespoon cream or tartar)
+                        //value, ingredient (ie 1 egg)
+                        if(actualAllMeasurements.contains(s)){
+                            for (int k=0;k<=i; k++){
+                                amount+=ingred[k]+" ";
+                            }
+                            break;
+                        }
+                        i++;
+                    }
+                    for (int k=i;k<ingred.length; k++){
+                        food+=ingred[k]+" ";
+                    }
+                    ingredientsMap.put(food,amount);
+                    j++;
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                    check = false;
+                    System.out.println("Ingredients stopped");
+                }
             }
             recipe.setIngredients(ingredientsMap);
-            System.out.println("Ingredients stopped");
             read.close();
         }
         catch (Exception e){
             e.printStackTrace();
+            System.out.println("Recipe creation failed");
         }
 
         return recipe;
