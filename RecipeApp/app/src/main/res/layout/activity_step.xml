@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/RecipeName"
-        android:textSize="16dp"
+        android:textSize="20dp"
         android:paddingBottom="2dp"
         android:paddingTop="2dp"
         android:textStyle="bold"/>
@@ -25,7 +25,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/stepName"
         android:textStyle="normal"
-        android:layout_below="@id/RecipeName"/>
+        android:layout_below="@id/RecipeName"
+        android:textSize="16dp"/>
 
     <TextSwitcher
         android:layout_width="match_parent"
