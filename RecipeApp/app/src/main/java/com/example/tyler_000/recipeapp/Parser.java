@@ -53,6 +53,7 @@ public class Parser {
                 }
             }
             recipe.setRecipeSteps(recipeSteps);
+            recipe.setCurStep(recipeSteps.get(0));
             ingredients= rec.getJSONObject("recipe").getJSONObject("Ingredients");
             String ingr="";
             j=1;
