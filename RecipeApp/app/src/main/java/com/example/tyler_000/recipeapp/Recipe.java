@@ -21,18 +21,18 @@ public class Recipe implements Parcelable {
     public Recipe(){
 
         this.recipeTitle = "default title";
-        Step newStep = new Step("potato","potato potato", ingredients = new HashMap<String,String>(),1);
+        Step newStep = new Step("Step 1","This is a step with a 5-second timer.", ingredients = new HashMap<String,String>(), 0, 5000);
         this.curStep = newStep;
         this.recipeSteps.add(newStep);
+        Step secondStep = new Step("Step 2", "This is the second step, no timer.", ingredients = new HashMap<String,String>(), 1) ;
+        this.recipeSteps.add(secondStep) ;
+        Step thirdStep = new Step("Step 3","This is the third step with a 5-second timer.", ingredients = new HashMap<String,String>(), 2, 5000);
+        this.recipeSteps.add(thirdStep) ;
+
     }
 
     public Recipe(String fileLocation){
         Recipe rec= Parser.parseRecipe(fileLocation);
-        this.recipeTitle=rec.getRecipeTitle();
-        this.recipeSteps=rec.getRecipeSteps();
-        this.ingredients=rec.getIngredients();
-        this.curStep=rec.getCurStep();
-        System.out.println("Created Recipe: "+ rec.getRecipeTitle());
     }
 
     public void displayRecipe(){
@@ -44,16 +44,15 @@ public class Recipe implements Parcelable {
     }
 
     public Step nextStep(){
-        if(curStep.stepNumber!=(recipeSteps.size())){
+        if(curStep.stepNumber!=(recipeSteps.size()-1)){
             curStep=recipeSteps.get(curStep.getStepNumber()+1);
-
         }
         return curStep;
     }
 
     public Step prevStep(){
-        if(curStep.stepNumber!=1){
-             curStep=recipeSteps.get(curStep.getStepNumber()-2);
+        if(curStep.stepNumber!=0){
+            curStep=recipeSteps.get(curStep.getStepNumber()-1);
         }
         return curStep;
     }
@@ -74,14 +73,10 @@ public class Recipe implements Parcelable {
 
     public Step getCurStep(){
         if(curStep == null){
-            Step newStep = new Step("cur was null bitch","was null",ingredients,1);
+            Step newStep = new Step("cur was null bitch","was null",ingredients, 0);
             return newStep;
         }
         return curStep;
-    }
-
-    public void setCurStep(Step step){
-        curStep=step;
     }
 
     public ArrayList<Step> getRecipeSteps() {
@@ -90,7 +85,7 @@ public class Recipe implements Parcelable {
     public void setRecipeSteps(ArrayList<Step> recipeSteps){
         this.recipeSteps=recipeSteps;
     }
-
+    
     protected Recipe(Parcel in) {
         recipeTitle = in.readString();
         curStep = (Step) in.readValue(Step.class.getClassLoader());
