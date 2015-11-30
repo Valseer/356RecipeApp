@@ -38,8 +38,6 @@ public class RecipeSelector extends ListActivity {
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, recipeNames);
         recipeList = new ArrayList<Recipe>();
         recipeList.add(new Recipe("sdcard/exampleJSON.json"));
-        recipeList.add(new Recipe());
-        recipeList.add(new Recipe());
         recipeReferenceArray.addAll(recipeList);
         setListAdapter(adapter);
         ListView recipeView = getListView();
@@ -58,7 +56,6 @@ public class RecipeSelector extends ListActivity {
         });
 
         for (int i = 0; i < recipeList.size(); i++) {
-            recipeList.get(i).setRecipeTitle("Potatoes" + i);
             recipeNames.add(recipeList.get(i).getRecipeTitle());
             adapter.notifyDataSetChanged();
 

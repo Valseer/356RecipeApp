@@ -15,13 +15,32 @@ public class Step implements Parcelable {
     protected String stepText;
     protected int stepNumber;
     protected HashMap<String,String> stepIngredients;
+    protected StepTimer timer;
+    protected boolean timerActive ;
+
     public Step(){}
 
+    /**
+     * Constructor for a step without a timer.
+     */
     public Step(String step, String stepText, HashMap<String, String> ingredients, int stepNumber){
         this.stepName=step;
         this.stepText=stepText;
         this.stepIngredients=ingredients;
-        this.stepNumber = stepNumber;
+        this.stepNumber = stepNumber ;
+        this.timer = null ;
+    }
+
+    /**
+     * Constructor for a step with a timer.
+     */
+    public Step(String step, String stepText, HashMap<String, String> ingredients, int stepNumber, int length){
+        this.stepName=step;
+        this.stepText=stepText;
+        this.stepIngredients=ingredients;
+        this.stepNumber = stepNumber ;
+        this.timer = new StepTimer(length, 1000, this) ;
+        this.timerActive = false ;
     }
 
     public HashMap<String, String> getStepIngredients(){
@@ -40,7 +59,6 @@ public class Step implements Parcelable {
         this.stepIngredients = stepIngredients;
     }
 
-
     public void setStepName(String stepName) {
         this.stepName = stepName;
     }
@@ -52,14 +70,19 @@ public class Step implements Parcelable {
     public void setStepNumber(int stepNumber){
         this.stepNumber=stepNumber;
     }
-    public int getStepNumber(){
-        return stepNumber;
-    }
+
+    public int getStepNumber(){ return stepNumber; }
+
     protected Step(Parcel in) {
         stepName = in.readString();
         stepText = in.readString();
         stepIngredients = (HashMap) in.readValue(HashMap.class.getClassLoader());
         stepNumber= in.readInt();
+        long time = in.readLong() ;
+        if(time > 0){
+            timer = new StepTimer(time, 1000, this) ;
+        }
+        else timer = null ;
     }
 
     @Override
@@ -73,6 +96,10 @@ public class Step implements Parcelable {
         dest.writeString(stepText);
         dest.writeValue(stepIngredients);
         dest.writeInt(stepNumber);
+        if(timer != null){
+            dest.writeLong(timer.getRemaining());
+        }
+        else dest.writeLong(0) ;
     }
 
     @SuppressWarnings("unused")
@@ -87,4 +114,45 @@ public class Step implements Parcelable {
             return new Step[size];
         }
     };
+
+    public boolean hasTimer(){
+        return this.timer instanceof StepTimer ;
+    }
+
+    public void startTimer() {
+        //If the timer is null, you can't do any timer operations
+        if(this.hasTimer()){
+            System.out.println("Starting timer!") ;
+            this.timer.start() ;
+            this.timerActive = true ;
+        }
+    }
+
+    public void stopTimer() {
+        //If the timer is null, you can't do any timer operations
+        if(this.hasTimer()) {
+            // get the remaining time
+            long remaining = timer.getRemaining();
+            // cancel the old timer
+            this.timer.cancel();
+            // create a new timer using the remaining time from the previous timer
+            this.timer = new StepTimer(remaining, 1000, this);
+            //Timer no longer active.
+            this.timerActive = false ;
+        }
+    }
+
+    /**
+     * For abstraction purposes, the Step_Activity is being passed in as a generic
+     * object and then re-casted to a Step_Activity type object inside of the timer.
+     * Reason: The Step has no need to "know" about the Step_Activity, nor should it.
+     */
+    public void setTimerView(Object step_activity){
+        this.timer.setActivity(step_activity) ;
+    }
+
+    public boolean isTimerActive(){
+        return this.timerActive ;
+    }
+
 }
