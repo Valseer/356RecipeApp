@@ -18,6 +18,7 @@
         android:textSize="20dp"
         android:paddingBottom="2dp"
         android:paddingTop="2dp"
+        android:alpha=".87"
         android:textStyle="bold"/>
 
     <TextView
@@ -26,12 +27,14 @@
         android:id="@+id/stepName"
         android:textStyle="normal"
         android:layout_below="@id/RecipeName"
+        android:alpha=".87"
         android:textSize="16dp"/>
 
     <TextSwitcher
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/stepDescription"
+        android:alpha=".87"
         android:layout_below="@id/stepName">
 
     </TextSwitcher>
