@@ -54,12 +54,10 @@ public class Parser {
                 }
             }
             recipe.setRecipeSteps(recipeSteps);
-<<<<<<< HEAD
+
             recipe.setCurStep(recipeSteps.get(0));
             ingredients= rec.getJSONObject("recipe").getJSONObject("Ingredients");
-=======
-            /*ingredients= rec.getJSONArray("Ingredients");
->>>>>>> 21e64e5b47563f4647b8b8d164322373ac12c0e5
+
             String ingr="";
             j=1;
             check=true;
@@ -94,10 +92,7 @@ public class Parser {
                 }
             }
             recipe.setIngredients(ingredientsMap);
-<<<<<<< HEAD
-=======
-            System.out.println("Ingredients stopped");*/
->>>>>>> 21e64e5b47563f4647b8b8d164322373ac12c0e5
+
             read.close();
         }
         catch (Exception e){
