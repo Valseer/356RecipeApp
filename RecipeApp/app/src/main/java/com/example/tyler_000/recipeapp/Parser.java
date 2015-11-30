@@ -37,13 +37,16 @@ public class Parser {
             while(check){
                 try {
                     step = steps.getJSONObject(Integer.toString(j));
-                    Step thisStep = new Step();
+                    Step thisStep;
+                    if (step.getString("timer").equals("true")) {
+                        thisStep= new Step("","",new HashMap<String, String>(),1,Integer.parseInt(step.getJSONObject("timerVal").toString()) );
+                    }
+                    else {
+                        thisStep= new Step();
+                    }
                     thisStep.setStepText(step.getString("StepText"));
                     thisStep.setStepNumber(j);
-                    if (step.getString("timer").equals("true")) {
-                        //TODO
-                        //thisStep.setTimer(Integer.parseInt(step.getJSONObject("timerVal").toString()));
-                    }
+
                     recipeSteps.add(thisStep);
                     j++;
                 }
@@ -55,7 +58,6 @@ public class Parser {
             }
             recipe.setRecipeSteps(recipeSteps);
 
-            recipe.setCurStep(recipeSteps.get(0));
             ingredients= rec.getJSONObject("recipe").getJSONObject("Ingredients");
             String ingr="";
             j=1;
