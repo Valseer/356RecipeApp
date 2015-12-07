@@ -37,6 +37,9 @@ public class RecipeSelector extends ListActivity {
         setContentView(R.layout.activity_recipe_selector);
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, recipeNames);
         recipeList = new ArrayList<Recipe>();
+        for(File recipeName: new File("sdcard/recipe/").listFiles()){
+            recipeList.add(new Recipe(recipeName.getName()));
+        }
         recipeList.add(new Recipe("sdcard/exampleJSON.json"));
         recipeReferenceArray.addAll(recipeList);
         setListAdapter(adapter);

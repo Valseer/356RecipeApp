@@ -39,7 +39,7 @@ public class Parser {
                     step = steps.getJSONObject(Integer.toString(j));
                     Step thisStep;
                     if (step.getString("timer").equals("true")) {
-                        thisStep= new Step("","",new HashMap<String, String>(),1,Integer.parseInt(step.getJSONObject("timerVal").toString()) );
+                        thisStep= new Step("","",new HashMap<String, String>(),1,Integer.parseInt(step.getString("timerVal")) );
                     }
                     else {
                         thisStep= new Step();
