@@ -13,7 +13,7 @@ import java.util.HashMap;
 public class Step implements Parcelable {
     protected String stepName;
     protected String stepText;
-    protected int stepNumber;
+    protected Integer stepNumber;
     protected HashMap<String,String> stepIngredients;
     protected StepTimer timer;
     protected boolean timerActive ;
@@ -34,12 +34,12 @@ public class Step implements Parcelable {
     /**
      * Constructor for a step with a timer.
      */
-    public Step(String step, String stepText, HashMap<String, String> ingredients, int stepNumber, int length){
+    public Step(String step, String stepText, HashMap<String, String> ingredients, int stepNumber, Long length){
         this.stepName=step;
         this.stepText=stepText;
         this.stepIngredients=ingredients;
         this.stepNumber = stepNumber ;
-        this.timer = new StepTimer(length, 1000, this) ;
+        this.timer = new StepTimer(length, new Long(1000), this) ;
         this.timerActive = false ;
     }
 
@@ -67,7 +67,7 @@ public class Step implements Parcelable {
         this.stepText = stepText;
     }
 
-    public void setStepNumber(int stepNumber){
+    public void setStepNumber(Integer stepNumber){
         this.stepNumber=stepNumber;
     }
 
@@ -78,9 +78,9 @@ public class Step implements Parcelable {
         stepText = in.readString();
         stepIngredients = (HashMap) in.readValue(HashMap.class.getClassLoader());
         stepNumber= in.readInt();
-        long time = in.readLong() ;
+        Long time = in.readLong() ;
         if(time > 0){
-            timer = new StepTimer(time, 1000, this) ;
+            timer = new StepTimer(time, new Long(1000), this) ;
         }
         else timer = null ;
     }
@@ -132,11 +132,11 @@ public class Step implements Parcelable {
         //If the timer is null, you can't do any timer operations
         if(this.hasTimer()) {
             // get the remaining time
-            long remaining = timer.getRemaining();
+            Long remaining = timer.getRemaining();
             // cancel the old timer
             this.timer.cancel();
             // create a new timer using the remaining time from the previous timer
-            this.timer = new StepTimer(remaining, 1000, this);
+            this.timer = new StepTimer(remaining, new Long(1000), this);
             //Timer no longer active.
             this.timerActive = false ;
         }

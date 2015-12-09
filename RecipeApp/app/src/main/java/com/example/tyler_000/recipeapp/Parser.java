@@ -33,31 +33,30 @@ public class Parser {
             ArrayList<Step> recipeSteps= new ArrayList<Step>();
             JSONObject steps= rec.getJSONObject("recipe").getJSONObject("Steps");
             JSONObject step;
-            int j=1;
+            Integer j=1;
             while(check){
                 try {
                     step = steps.getJSONObject(Integer.toString(j));
                     Step thisStep;
                     if (step.getString("timer").equals("true")) {
-                        thisStep= new Step("","",new HashMap<String, String>(),1,Integer.parseInt(step.getString("timerVal")) );
+                        thisStep= new Step("","",new HashMap<String, String>(),1,Long.parseLong(step.getString("timerVal")) );
                     }
                     else {
                         thisStep= new Step();
                     }
                     thisStep.setStepText(step.getString("StepText"));
                     thisStep.setStepNumber(j);
-
+                    thisStep.setStepName("Step"+j);
                     recipeSteps.add(thisStep);
                     j++;
                 }
                 catch (Exception e) {
-                    e.printStackTrace();
                     check = false;
                     System.out.println("Steps stopped");
                 }
             }
             recipe.setRecipeSteps(recipeSteps);
-
+            recipe.setCurStep(recipeSteps.get(0));
             ingredients= rec.getJSONObject("recipe").getJSONObject("Ingredients");
 
             String ingr="";
@@ -68,27 +67,28 @@ public class Parser {
                     ingr = ingredients.getString(Integer.toString(j));
                     String[] ingred=ingr.split(" ");
                     int i=0;
+                    int k=0;
                     String amount="";
                     String food="";
                     for(String s : ingred){
                         //value, measurement, ingredient (1 cup flour/ 1 tablespoon cream or tartar)
                         //value, ingredient (ie 1 egg)
                         if(actualAllMeasurements.contains(s)){
-                            for (int k=0;k<=i; k++){
+                            for (k=0;k<=i; k++){
                                 amount+=ingred[k]+" ";
                             }
                             break;
                         }
                         i++;
+
                     }
-                    for (int k=i;k<ingred.length; k++){
+                    for (int h=k;h<ingred.length; h++){
                         food+=ingred[k]+" ";
                     }
                     ingredientsMap.put(food,amount);
                     j++;
                 }
                 catch (Exception e) {
-                    e.printStackTrace();
                     check = false;
                     System.out.println("Ingredients stopped");
                 }
@@ -101,7 +101,6 @@ public class Parser {
             e.printStackTrace();
             System.out.println("Recipe creation failed");
         }
-
         return recipe;
     }
 }

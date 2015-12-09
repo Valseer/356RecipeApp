@@ -21,7 +21,7 @@
         android:alpha=".87"
         android:textStyle="bold"/>
 
-    <TextView
+    <TextSwitcher
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/stepName"
