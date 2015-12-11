@@ -59,6 +59,7 @@ public class Step_Activity extends Activity
             public View makeView()
             {
                 TextView stepText = new TextView(Step_Activity.this);
+                stepText.setTextSize(16);
                 return stepText;
             }
         });
@@ -68,6 +69,8 @@ public class Step_Activity extends Activity
             @Override
             public View makeView() {
                 TextView stepName= new TextView(Step_Activity.this);
+                stepName.setTextSize(20);
+
                 return stepName;
             }
         });

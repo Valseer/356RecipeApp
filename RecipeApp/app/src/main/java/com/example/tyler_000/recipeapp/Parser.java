@@ -46,7 +46,7 @@ public class Parser {
                     }
                     thisStep.setStepText(step.getString("StepText"));
                     thisStep.setStepNumber(j);
-                    thisStep.setStepName("Step"+j);
+                    thisStep.setStepName("Step "+j);
                     recipeSteps.add(thisStep);
                     j++;
                 }
