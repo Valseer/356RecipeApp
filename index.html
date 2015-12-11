@@ -28,7 +28,7 @@
 				
 				submitButton.onclick = function(e){
 					var JSONText = "";
-					JSONText += '{"recipe":{"name":"' + document.getElementById("title").value + '","Ingredients":{';
+					JSONText += '{"recipe":{"name":"' + document.getElementById("title").value + '","RecipeType":"' + $('input[name="recipeType"]:checked').val() + '","measurementType":"' + $('input[name="measurementType"]:checked').val() + '","Ingredients":{';
 					var ingredientsText = document.getElementById("ingredient").value;
 					var character = '';
 					var allIngredients = [];
@@ -36,7 +36,7 @@
 					for(var i=0; i < ingredientsText.length; i++)
 					{
 						character = ingredientsText[i];
-						if(character == ','){
+						if(character == ',' || i == ingredientsText.length-1){
 							allIngredients.push(ingredient);
 							ingredient = "";
 						}
@@ -86,8 +86,17 @@
 			<h1>RECIPE CREATOR!</h1>
 		</div>
 		<div>
-		<p>Name of Recipe:</p>
+			<p>Name of Recipe:</p>
 			<input type="text" id="title" style="width:40%"></input>
+			<p>Type of Recipe:</p>
+			<label>Appetizer</label><input type="radio" name="recipeType" value="Appetizer" checked>
+			<label>Entree</label><input type="radio" name="recipeType" value="Entree">
+			<label>Side-dish</label><input type="radio" name="recipeType" value="Side-dish">
+			<label>Dessert</label><input type="radio" name="recipeType" value="Dessert">
+			<p></p>
+			<p>Imperial or Metric Measurements?</p>
+			<label>Imperial</label><input type="radio" name="measurementType" value='Imperial' checked>
+			<label>Metric</label><input type="radio" name="measurementType" value="Metric">
 		</div>
 		<div>
 		<p>Ingredients:</p>
