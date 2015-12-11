@@ -13,7 +13,10 @@ import android.widget.AdapterView;
 import com.example.tyler_000.recipeapp.gestures.RecipeSelectorGesture;
 import com.vuzix.hardware.GestureSensor;
 
+import java.io.File;
+import java.io.FilenameFilter;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class RecipeSelector extends ListActivity {
 
@@ -34,9 +37,11 @@ public class RecipeSelector extends ListActivity {
         setContentView(R.layout.activity_recipe_selector);
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, recipeNames);
         recipeList = new ArrayList<Recipe>();
-        recipeList.add(new Recipe());
-        recipeList.add(new Recipe());
-        recipeList.add(new Recipe());
+        for(File recipeName: new File("sdcard/recipe/").listFiles()){
+            recipeList.add(new Recipe(recipeName.getAbsolutePath()));
+        }
+        Recipe rec= new Recipe("sdcard/exampleJSON.json");
+        recipeList.add(rec);
         recipeReferenceArray.addAll(recipeList);
         setListAdapter(adapter);
         ListView recipeView = getListView();
@@ -55,7 +60,6 @@ public class RecipeSelector extends ListActivity {
         });
 
         for (int i = 0; i < recipeList.size(); i++) {
-            recipeList.get(i).setRecipeTitle("Potatoes" + i);
             recipeNames.add(recipeList.get(i).getRecipeTitle());
             adapter.notifyDataSetChanged();
 

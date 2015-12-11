@@ -9,7 +9,7 @@ import android.support.v4.app.NotificationCompat;
  */
 public class StepTimer extends CountDownTimer{
 
-    protected long remaining, interval ;
+    protected Long remaining, interval ;
     protected Step_Activity step_activity;
     protected boolean active ;
     protected Step step ;
@@ -19,7 +19,7 @@ public class StepTimer extends CountDownTimer{
         super(1000,1000) ;
     }
 
-    public StepTimer(long length, long interval, Step step){
+    public StepTimer(Long length, Long interval, Step step){
         super(length, interval) ;
         this.remaining = length ;
         this.interval = interval ;
@@ -34,7 +34,7 @@ public class StepTimer extends CountDownTimer{
 
         //There is a certain degree of error with the millisUntilFinished, it will not be in exactly 1000 intervals.
         if(millisUntilFinished % 1000 != 0){
-            this.remaining = ((int)(millisUntilFinished/1000)) + 1 ;
+            this.remaining = (((Long)(millisUntilFinished/1000)) + 1) ;
         } else{ this.remaining = millisUntilFinished ; }
         this.remaining = millisUntilFinished ;
 

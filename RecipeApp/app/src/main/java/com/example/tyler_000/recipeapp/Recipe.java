@@ -21,18 +21,22 @@ public class Recipe implements Parcelable {
     public Recipe(){
 
         this.recipeTitle = "default title";
-        Step newStep = new Step("Step 1","This is a step with a 5-second timer.", ingredients = new HashMap<String,String>(), 0, 5000);
+        Step newStep = new Step("Step 1","This is a step with a 5-second timer.", ingredients = new HashMap<String,String>(), 0, new Long(5000));
         this.curStep = newStep;
         this.recipeSteps.add(newStep);
         Step secondStep = new Step("Step 2", "This is the second step, no timer.", ingredients = new HashMap<String,String>(), 1) ;
         this.recipeSteps.add(secondStep) ;
-        Step thirdStep = new Step("Step 3","This is the third step with a 5-second timer.", ingredients = new HashMap<String,String>(), 2, 5000);
+        Step thirdStep = new Step("Step 3","This is the third step with a 5-second timer.", ingredients = new HashMap<String,String>(), 2, new Long(5000));
         this.recipeSteps.add(thirdStep) ;
 
     }
 
     public Recipe(String fileLocation){
-        Recipe rec= Parser.parseRecipe(fileLocation);
+        Recipe recipe= Parser.parseRecipe(fileLocation);
+        this.setCurStep(recipe.getCurStep());
+        this.setIngredients(recipe.getIngredients());
+        this.setRecipeSteps(recipe.getRecipeSteps());
+        this.setRecipeTitle(recipe.getRecipeTitle());
     }
 
     public void displayRecipe(){
@@ -42,17 +46,17 @@ public class Recipe implements Parcelable {
     public Step startRecipe(){
         return recipeSteps.get(0);
     }
-
+    public void setCurStep(Step curStep){this.curStep=curStep;}
     public Step nextStep(){
-        if(curStep.stepNumber!=(recipeSteps.size()-1)){
-            curStep=recipeSteps.get(curStep.getStepNumber()+1);
+        if(curStep.getStepNumber()<(recipeSteps.size())){
+            curStep=recipeSteps.get(curStep.getStepNumber());
         }
         return curStep;
     }
 
     public Step prevStep(){
-        if(curStep.stepNumber!=0){
-            curStep=recipeSteps.get(curStep.getStepNumber()-1);
+        if(curStep.stepNumber!=1){
+            curStep=recipeSteps.get(curStep.getStepNumber()-2);
         }
         return curStep;
     }

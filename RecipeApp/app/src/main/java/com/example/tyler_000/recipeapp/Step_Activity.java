@@ -24,6 +24,7 @@ public class Step_Activity extends Activity
     Recipe currentRecipe;
     Step currentStep;
     private TextSwitcher stepSwitcher;
+    private TextSwitcher stepNameSwitcher;
     GestureSensor gs ;
 
 
@@ -45,8 +46,6 @@ public class Step_Activity extends Activity
         TextView recipeName = (TextView) findViewById(R.id.RecipeName);
         recipeName.setText(currentRecipe.getRecipeTitle());
 
-        TextView stepName = (TextView) findViewById(R.id.stepName);
-        stepName.setText(currentStep.getStepName());
 
         //Assign the current step activity to the current step timer, if necessary.
         if(currentStep.hasTimer()){
@@ -64,11 +63,22 @@ public class Step_Activity extends Activity
             }
         });
 
+        stepNameSwitcher= (TextSwitcher) findViewById(R.id.stepName);
+        stepNameSwitcher.setFactory(new ViewSwitcher.ViewFactory() {
+            @Override
+            public View makeView() {
+                TextView stepName= new TextView(Step_Activity.this);
+                return stepName;
+            }
+        });
+
         Animation out = AnimationUtils.loadAnimation(this, android.R.anim.fade_out);
         Animation in = AnimationUtils.loadAnimation(this, android.R.anim.slide_in_left);
         // set the animation type of textSwitcher
         stepSwitcher.setInAnimation(in);
         stepSwitcher.setOutAnimation(out);
+        stepNameSwitcher.setInAnimation(in);
+        stepNameSwitcher.setOutAnimation(out);
         updateView();
 
         //Create the gesture sensor
@@ -114,6 +124,7 @@ public class Step_Activity extends Activity
 
     public void updateView(){
         stepSwitcher.setText(currentStep.getStepText());
+        stepNameSwitcher.setText(currentStep.getStepName());
 
         return;
     }
